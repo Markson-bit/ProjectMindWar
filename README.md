@@ -16,6 +16,15 @@
 2. Install SFML library, for example by NuGet Package: <br>
 
   ![image](https://github.com/Markson-bit/ProjectMindWar/assets/88060437/b129e0f8-bcd7-4f0f-b817-9defa649fa92) 
+     
+<br>
+     
+### Actual look
+     
+  ![image](https://github.com/Markson-bit/ProjectMindWar/assets/88060437/ecf2c198-aa4b-40f1-bbb3-a3498a5b3bf9)
+
+
+
   
   
 
