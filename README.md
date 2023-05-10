@@ -21,7 +21,9 @@
      
 ### Actual look
      
-  ![image](https://github.com/Markson-bit/ProjectMindWar/assets/88060437/ff876e82-c9e6-4e61-b4d6-e86def26611c)
+  ![image](https://github.com/Markson-bit/ProjectMindWar/assets/88060437/ecf2c198-aa4b-40f1-bbb3-a3498a5b3bf9)
+
+
 
   
   
