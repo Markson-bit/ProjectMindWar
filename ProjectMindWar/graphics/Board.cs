@@ -8,29 +8,42 @@ namespace ProjectMindWar.graphics
 {
     internal class Board : RenderWindow
     {
+        // Path to folder with pngs
         string figuresPath = AppDomain.CurrentDomain.BaseDirectory + @"..\\..\\..\\\graphics\img";
 
         public Board(uint width, uint height, string title) : base(new VideoMode(width, height), title)
         {
-            // VSync, to limit FPS and Closed window event sub
+            // VSync, to limit FPS
             SetVerticalSyncEnabled(true);
+            // Closed window event sub
             Closed += (_, __) => Close();
         }
 
         public void Run()
         {
-            // Defining colors for board and square look
-            Color dark = new Color(43, 43, 43);
+            // Defining colors for squares
+            Color dark = new Color(100, 100, 100);
             Color bright = new Color(200, 200, 200);
 
+            // Square as element of board
             RectangleShape square = new RectangleShape(new Vector2f(100, 100));
             bool isDragging = false;
             Vector2i dragOffset = new Vector2i();
 
-            Texture pawnTexture = new Texture(figuresPath + @"\pawn.png");
 
-            Sprite pawn = new Sprite(pawnTexture);
-            pawn.Scale = new Vector2f(50f / pawn.Texture.Size.X, 50f / pawn.Texture.Size.Y);
+            // DEFINING FIGURES
+            // Pawn
+            Texture pawnWTexture = new Texture(figuresPath + @"\pawnW.png");
+            Sprite pawnW = new Sprite(pawnWTexture);
+            pawnW.Scale = new Vector2f(50f / pawnW.Texture.Size.X, 50f / pawnW.Texture.Size.Y);
+            pawnW.Texture.Smooth = true;
+
+            Texture pawnBTexture = new Texture(figuresPath + @"\pawnB.png");
+            Sprite pawnB = new Sprite(pawnBTexture);
+            pawnB.Scale = new Vector2f(50f / pawnB.Texture.Size.X, 50f / pawnB.Texture.Size.Y);
+            pawnB.Texture.Smooth = true;
+
+
 
             while (IsOpen)
             {
@@ -38,20 +51,20 @@ namespace ProjectMindWar.graphics
                 DispatchEvents();
 
                 // Drawing board
-                Clear(Color.White);
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
                     {
+                        // Squares location and color
                         square.Position = new Vector2f(100 * i, 100 * j);
                         square.FillColor = ((i + j) % 2 == 0) ? dark : bright;
                         Draw(square);
 
-
-                        pawn.Position = new Vector2f(25 + (100 * i), 125);
-                        Draw(pawn);
-                        pawn.Position = new Vector2f(25 + (100 * i), 625);
-                        Draw(pawn);
+                        // Pawns location and color
+                        pawnB.Position = new Vector2f(25 + (100 * i), 125);
+                        Draw(pawnB);
+                        pawnW.Position = new Vector2f(25 + (100 * i), 625);
+                        Draw(pawnW);
                     }
                 }              
                 // Moving window
