@@ -2,11 +2,14 @@
 using SFML.System;
 using SFML.Window;
 using System;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ProjectMindWar.graphics
 {
     internal class Board : RenderWindow
     {
+        string figuresPath = AppDomain.CurrentDomain.BaseDirectory + @"..\\..\\..\\\graphics\img";
+
         public Board(uint width, uint height, string title) : base(new VideoMode(width, height), title)
         {
             // VSync, to limit FPS and Closed window event sub
@@ -24,6 +27,11 @@ namespace ProjectMindWar.graphics
             bool isDragging = false;
             Vector2i dragOffset = new Vector2i();
 
+            Texture pawnTexture = new Texture(figuresPath + @"\pawn.png");
+
+            Sprite pawn = new Sprite(pawnTexture);
+            pawn.Scale = new Vector2f(50f / pawn.Texture.Size.X, 50f / pawn.Texture.Size.Y);
+
             while (IsOpen)
             {
                 // Handling events
@@ -38,6 +46,12 @@ namespace ProjectMindWar.graphics
                         square.Position = new Vector2f(100 * i, 100 * j);
                         square.FillColor = ((i + j) % 2 == 0) ? dark : bright;
                         Draw(square);
+
+
+                        pawn.Position = new Vector2f(25 + (100 * i), 125);
+                        Draw(pawn);
+                        pawn.Position = new Vector2f(25 + (100 * i), 625);
+                        Draw(pawn);
                     }
                 }              
                 // Moving window
