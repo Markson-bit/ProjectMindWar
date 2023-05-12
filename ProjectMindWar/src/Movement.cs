@@ -11,5 +11,10 @@ namespace ProjectMindWar.src
 {
     internal class Movement
     {
+        public Movement() 
+        {
+          
+        }
+        
     }
 }
