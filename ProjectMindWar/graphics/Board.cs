@@ -57,6 +57,9 @@ namespace ProjectMindWar.graphics
                 pawnsW[i].Position = new Vector2f(25 + (100 * i), 125);
             }
 
+            Sprite selectedPawn = null;
+            bool isPawnSelected = false;
+
             while (IsOpen)
             {
                 DispatchEvents();
@@ -80,11 +83,40 @@ namespace ProjectMindWar.graphics
                     Vector2f relativeMousePosition = new Vector2f(mousePosition.X + 540, mousePosition.Y + 160) - new Vector2f(Position.X, Position.Y);
                     int column = (int)Math.Floor(relativeMousePosition.X / 100);
                     int row = (int)Math.Floor(relativeMousePosition.Y / 100);
-
-                    Vector2f newPosition = new Vector2f(column * 100 + 25, row * 100 + 25);
-                    pawnsW[0].Position = newPosition;
-                    Console.WriteLine($"New position: ({newPosition.X}, {newPosition.Y})");
                     Thread.Sleep(100);
+
+                    if ((column > 7.25 || row > 7.25) || (column < 0 || row < 0))
+                    {
+                        Vector2f newPosition = new Vector2f(column * 100 + 25, row * 100 + 25);
+                        Console.WriteLine($"To far: ({newPosition.X}, {newPosition.Y})");
+                    }
+                    else if (isPawnSelected)
+                    {
+                        Vector2f newPosition = new Vector2f(column * 100 + 25, row * 100 + 25);
+                        selectedPawn.Position = newPosition;
+                        Console.WriteLine($"Moved pawn to position: ({newPosition.X}, {newPosition.Y})");
+                        isPawnSelected = false;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            if (pawnsW[i].GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
+                            {
+                                selectedPawn = pawnsW[i];
+                                isPawnSelected = true;
+                                Console.WriteLine("Selected pawn white at position: " + selectedPawn.Position.X + ", " + selectedPawn.Position.Y);
+                                break;
+                            }
+                            if (pawnsB[i].GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
+                            {
+                                selectedPawn = pawnsB[i];
+                                isPawnSelected = true;
+                                Console.WriteLine("Selected pawn black at position: " + selectedPawn.Position.X + ", " + selectedPawn.Position.Y);
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 // Drawing figures
@@ -96,6 +128,7 @@ namespace ProjectMindWar.graphics
 
                 Display();
             }
+
 
 
         }
