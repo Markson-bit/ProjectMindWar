@@ -4,14 +4,27 @@ using SFML.System;
 using SFML.Window;
 using System;
 using System.Windows.Input;
+using System.Collections.Generic;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace ProjectMindWar.graphics
 {
+    
     internal class Board : RenderWindow
     {
         // Path to folder with pngs
         static string figuresPath = AppDomain.CurrentDomain.BaseDirectory + @"..\\..\\..\\\graphics\img";
+
+        // 
+        Sprite CreateChessPieceTexture(string filePath, Vector2f position)
+        {
+            Texture texture = new Texture(filePath);
+            Sprite sprite = new Sprite(texture);
+            sprite.Scale = new Vector2f(50f / sprite.Texture.Size.X, 50f / sprite.Texture.Size.Y);
+            sprite.Texture.Smooth = true;
+            sprite.Position = position;
+            return sprite;
+        }
 
         public Board(uint width, uint height, string title) : base(new VideoMode(width, height), title)
         {
@@ -33,124 +46,40 @@ namespace ProjectMindWar.graphics
 
             // DEFINING FIGURES
             // Pawns
-            Texture pawnBTexture = new Texture(figuresPath + @"\pawnB.png");
             Sprite[] pawnsB = new Sprite[8];
-            for (int i = 0; i < pawnsB.Length; i++)
-            {
-                pawnsB[i] = new Sprite(pawnBTexture);
-                pawnsB[i].Scale = new Vector2f(50f / pawnsB[i].Texture.Size.X, 50f / pawnsB[i].Texture.Size.Y);
-                pawnsB[i].Texture.Smooth = true;
-            }
-
-            Texture pawnWTexture = new Texture(figuresPath + @"\pawnW.png");
             Sprite[] pawnsW = new Sprite[8];
-            for (int i = 0; i < pawnsB.Length; i++)
-            {
-                pawnsW[i] = new Sprite(pawnWTexture);
-                pawnsW[i].Scale = new Vector2f(50f / pawnsW[i].Texture.Size.X, 50f / pawnsW[i].Texture.Size.Y);
-                pawnsW[i].Texture.Smooth = true;
-            }
 
             for (int i = 0; i < 8; i++)
             {
-                pawnsB[i].Position = new Vector2f(25 + (100 * i), 625);
-                pawnsW[i].Position = new Vector2f(25 + (100 * i), 125);
+                pawnsB[i] = CreateChessPieceTexture(figuresPath + @"\pawnB.png", new Vector2f(25 + (100 * i), 625));
+                pawnsW[i] = CreateChessPieceTexture(figuresPath + @"\pawnW.png", new Vector2f(25 + (100 * i), 125));
             }
 
-            // KING - B
-            Texture kingBTexture = new Texture(figuresPath + @"\kingB.png");
-            Sprite kingB = new Sprite(kingBTexture);
-            kingB.Scale = new Vector2f(50f / kingB.Texture.Size.X, 50f / kingB.Texture.Size.Y);
-            kingB.Texture.Smooth = true;   
-            kingB.Position = new Vector2f(425, 725);
+            // Kings
+            Sprite kingB = CreateChessPieceTexture(figuresPath + @"\kingB.png", new Vector2f(425, 725));
+            Sprite kingW = CreateChessPieceTexture(figuresPath + @"\kingW.png", new Vector2f(425, 25));
 
-            // KING - W
-            Texture kingWTexture = new Texture(figuresPath + @"\kingW.png");
-            Sprite kingW = new Sprite(kingWTexture);
-            kingW.Scale = new Vector2f(50f / kingW.Texture.Size.X, 50f / kingW.Texture.Size.Y);
-            kingW.Texture.Smooth = true;
-            kingW.Position = new Vector2f(425, 25);
+            // Queens
+            Sprite queenB = CreateChessPieceTexture(figuresPath + @"\queenB.png", new Vector2f(325, 725));
+            Sprite queenW = CreateChessPieceTexture(figuresPath + @"\queenW.png", new Vector2f(325, 25));
 
-            // QUEEN - B
-            Texture queenBTexture = new Texture(figuresPath + @"\queenB.png");
-            Sprite queenB = new Sprite(queenBTexture);
-            queenB.Scale = new Vector2f(50f / queenB.Texture.Size.X, 50f / queenB.Texture.Size.Y);
-            queenB.Texture.Smooth = true;
-            queenB.Position = new Vector2f(325, 725);
+            // Rooks
+            Sprite rookB1 = CreateChessPieceTexture(figuresPath + @"\rookB.png", new Vector2f(25, 725));
+            Sprite rookB2 = CreateChessPieceTexture(figuresPath + @"\rookB.png", new Vector2f(725, 725));
+            Sprite rookW1 = CreateChessPieceTexture(figuresPath + @"\rookW.png", new Vector2f(25, 25));
+            Sprite rookW2 = CreateChessPieceTexture(figuresPath + @"\rookW.png", new Vector2f(725, 25));
 
-            // QUEEN - W
-            Texture queenWTexture = new Texture(figuresPath + @"\queenW.png");
-            Sprite queenW = new Sprite(queenWTexture);
-            queenW.Scale = new Vector2f(50f / queenW.Texture.Size.X, 50f / queenW.Texture.Size.Y);
-            queenW.Texture.Smooth = true;
-            queenW.Position = new Vector2f(325, 25);
+            // Bishops
+            Sprite bishopB1 = CreateChessPieceTexture(figuresPath + @"\bishopB.png", new Vector2f(225, 725));
+            Sprite bishopB2 = CreateChessPieceTexture(figuresPath + @"\bishopB.png", new Vector2f(525, 725));
+            Sprite bishopW1 = CreateChessPieceTexture(figuresPath + @"\bishopW.png", new Vector2f(225, 25));
+            Sprite bishopW2 = CreateChessPieceTexture(figuresPath + @"\bishopW.png", new Vector2f(525, 25));
 
-            // ROOKS - B
-            Texture rookBTexture = new Texture(figuresPath + @"\rookB.png");
-            Sprite rookB1 = new Sprite(rookBTexture);
-            Sprite rookB2 = new Sprite(rookBTexture);
-            rookB1.Scale = new Vector2f(50f / rookB1.Texture.Size.X, 50f / rookB1.Texture.Size.Y);
-            rookB1.Texture.Smooth = true;
-            rookB1.Position = new Vector2f(25, 725);
-            rookB2.Scale = new Vector2f(50f / rookB2.Texture.Size.X, 50f / rookB2.Texture.Size.Y);
-            rookB2.Texture.Smooth = true;
-            rookB2.Position = new Vector2f(725, 725);
-
-            // ROOKS - W
-            Texture rookWTexture = new Texture(figuresPath + @"\rookW.png");
-            Sprite rookW1 = new Sprite(rookWTexture);
-            Sprite rookW2 = new Sprite(rookWTexture);
-            rookW1.Scale = new Vector2f(50f / rookW1.Texture.Size.X, 50f / rookW1.Texture.Size.Y);
-            rookW1.Texture.Smooth = true;
-            rookW1.Position = new Vector2f(25, 25);
-            rookW2.Scale = new Vector2f(50f / rookW2.Texture.Size.X, 50f / rookW2.Texture.Size.Y);
-            rookW2.Texture.Smooth = true;   
-            rookW2.Position = new Vector2f(725, 25);
-
-            // BISHOPS - B
-            Texture bishopBTexture = new Texture(figuresPath + @"\bishopB.png");
-            Sprite bishopB1 = new Sprite(bishopBTexture);
-            Sprite bishopB2 = new Sprite(bishopBTexture);
-            bishopB1.Scale = new Vector2f(50f / bishopB1.Texture.Size.X, 50f / bishopB1.Texture.Size.Y);
-            bishopB1.Texture.Smooth = true;
-            bishopB1.Position = new Vector2f(225, 725);
-            bishopB2.Scale = new Vector2f(50f / bishopB2.Texture.Size.X, 50f / bishopB2.Texture.Size.Y);
-            bishopB2.Texture.Smooth = true;
-            bishopB2.Position = new Vector2f(525, 725);
-
-            // BISHOPS - W
-            Texture bishopWTexture = new Texture(figuresPath + @"\bishopW.png");
-            Sprite bishopW1 = new Sprite(bishopWTexture);
-            Sprite bishopW2 = new Sprite(bishopWTexture);
-            bishopW1.Scale = new Vector2f(50f / bishopW1.Texture.Size.X, 50f / bishopW1.Texture.Size.Y);
-            bishopW1.Texture.Smooth = true;
-            bishopW1.Position = new Vector2f(225, 25);
-            bishopW2.Scale = new Vector2f(50f / bishopW2.Texture.Size.X, 50f / bishopW2.Texture.Size.Y);
-            bishopW2.Texture.Smooth = true;
-            bishopW2.Position = new Vector2f(525, 25);
-
-            // KNIGHTS - B
-            Texture knightBTexture = new Texture(figuresPath + @"\knightB.png");
-            Sprite knightB1 = new Sprite(knightBTexture);
-            Sprite knightB2 = new Sprite(knightBTexture);
-            knightB1.Scale = new Vector2f(50f / knightB1.Texture.Size.X, 50f / knightB1.Texture.Size.Y);
-            knightB1.Texture.Smooth = true;
-            knightB1.Position = new Vector2f(125, 725);
-            knightB2.Scale = new Vector2f(50f / knightB2.Texture.Size.X, 50f / knightB2.Texture.Size.Y);
-            knightB2.Texture.Smooth = true;
-            knightB2.Position = new Vector2f(625, 725);
-
-            // KNIGHTS - W
-            Texture knightWTexture = new Texture(figuresPath + @"\knightW.png");
-            Sprite knightW1 = new Sprite(knightWTexture);
-            Sprite knightW2 = new Sprite(knightWTexture);
-            knightW1.Scale = new Vector2f(50f / knightW1.Texture.Size.X, 50f / knightW1.Texture.Size.Y);
-            knightW1.Texture.Smooth = true;
-            knightW1.Position = new Vector2f(125, 25);
-            knightW2.Scale = new Vector2f(50f / knightW2.Texture.Size.X, 50f / knightW2.Texture.Size.Y);
-            knightW2.Texture.Smooth = true;
-            knightW2.Position = new Vector2f(625, 25);
-
+            //Knights
+            Sprite knightB1 = CreateChessPieceTexture(figuresPath + @"\knightB.png", new Vector2f(125, 725));
+            Sprite knightB2 = CreateChessPieceTexture(figuresPath + @"\knightB.png", new Vector2f(625, 725));
+            Sprite knightW1 = CreateChessPieceTexture(figuresPath + @"\knightW.png", new Vector2f(125, 25));
+            Sprite knightW2 = CreateChessPieceTexture(figuresPath + @"\knightW.png", new Vector2f(625, 25));
 
             Sprite selectedFigure = null;
             bool isPawnSelected = false;
@@ -171,7 +100,7 @@ namespace ProjectMindWar.graphics
                     }
                 }
 
-                // Moving pawn to selected position by mouse location
+                // Moving figure to selected position by mouse location
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
                     Vector2i mousePosition = Mouse.GetPosition(this);
@@ -210,120 +139,40 @@ namespace ProjectMindWar.graphics
                                 isPawnSelected = true;
                                 Console.WriteLine("Selected PAWN WHITE at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
                                 break;
-                            }
-                            if (kingB.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
+                            }                          
+                        }
+
+                        Dictionary<string, Sprite> pieces = new Dictionary<string, Sprite>
+                        {   
+                            {"KING BLACK", kingB},
+                            {"KING WHITE", kingW},
+                            {"QUEEN BLACK", queenB},
+                            {"QUEEN WHITE", queenW},
+                            {"ROOK BLACK (left)", rookB1},
+                            {"ROOK BLACK (right)", rookB2},
+                            {"ROOK WHITE (left)", rookW1},
+                            {"ROOK WHITE (right)", rookW2},
+                            {"BISHOP BLACK (left)", bishopB1},
+                            {"BISHOP BLACK (right)", bishopB2},
+                            {"BISHOP WHITE (left)", bishopW1},
+                            {"BISHOP WHITE (right)", bishopW2},
+                            {"KNIGHT BLACK (left)", knightB1},
+                            {"KNIGHT BLACK (right)", knightB2},
+                            {"KNIGHT WHITE (left)", knightW1},
+                            {"KNIGHT WHITE (right)", knightW2},
+                        };
+
+                        foreach (var piece in pieces)
+                        {
+                            if (piece.Value.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
                             {
-                                selectedFigure = kingB;
+                                selectedFigure = piece.Value;
                                 isPawnSelected = true;
-                                Console.WriteLine("Selected KING BLACK at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (kingW.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = kingW;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected KING WHITE at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (queenB.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = queenB;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected QUEEN BLACK at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (queenW.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = queenW;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected QUEEN WHITE at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (rookB1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = rookB1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected ROOK BLACK (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (rookB2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = rookB2;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected ROOK BLACK (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (rookW1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = rookW1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected ROOK WHITE (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (rookW2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = rookW2;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected ROOK WHITE (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (bishopB1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = bishopB1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected BISHOP BLACK (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (bishopB2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = bishopB1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected BISHOP BLACK (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (bishopW1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = bishopW1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected BISHOP WHITE (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (bishopW2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = bishopW2;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected BISHOP WHITE (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (knightB1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = knightB1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected KNIGHT BLACK (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (knightB2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = knightB2;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected KNIGHT BLACK (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (knightW1.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = knightW1;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected KNIGHT WHITE (left) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
-                                break;
-                            }
-                            if (knightW2.GetGlobalBounds().Contains(relativeMousePosition.X, relativeMousePosition.Y))
-                            {
-                                selectedFigure = knightW2;
-                                isPawnSelected = true;
-                                Console.WriteLine("Selected KNIGHT WHITE (right) at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
+                                Console.WriteLine("Selected " + piece.Key + " at position: " + selectedFigure.Position.X + ", " + selectedFigure.Position.Y);
                                 break;
                             }
                         }
+
                     }
                 }
 
@@ -349,12 +198,8 @@ namespace ProjectMindWar.graphics
                     Draw(knightW1);
                     Draw(knightW2);
                 }
-
                 Display();
             }
-
-
-
         }
     }
 }
