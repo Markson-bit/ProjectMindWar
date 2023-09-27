@@ -18,6 +18,7 @@ namespace ProjectMindWar.graphics
         // 
         Sprite CreateChessPieceTexture(string filePath, Vector2f position)
         {
+            filePath = figuresPath + filePath;
             Texture texture = new Texture(filePath);
             Sprite sprite = new Sprite(texture);
             sprite.Scale = new Vector2f(50f / sprite.Texture.Size.X, 50f / sprite.Texture.Size.Y);
@@ -51,35 +52,35 @@ namespace ProjectMindWar.graphics
 
             for (int i = 0; i < 8; i++)
             {
-                pawnsB[i] = CreateChessPieceTexture(figuresPath + @"\pawnB.png", new Vector2f(25 + (100 * i), 625));
-                pawnsW[i] = CreateChessPieceTexture(figuresPath + @"\pawnW.png", new Vector2f(25 + (100 * i), 125));
+                pawnsB[i] = CreateChessPieceTexture(@"\pawnB.png", new Vector2f(25 + (100 * i), 625));
+                pawnsW[i] = CreateChessPieceTexture(@"\pawnW.png", new Vector2f(25 + (100 * i), 125));
             }
 
             // Kings
-            Sprite kingB = CreateChessPieceTexture(figuresPath + @"\kingB.png", new Vector2f(425, 725));
-            Sprite kingW = CreateChessPieceTexture(figuresPath + @"\kingW.png", new Vector2f(425, 25));
+            Sprite kingB = CreateChessPieceTexture(@"\kingB.png", new Vector2f(425, 725));
+            Sprite kingW = CreateChessPieceTexture(@"\kingW.png", new Vector2f(425, 25));
 
             // Queens
-            Sprite queenB = CreateChessPieceTexture(figuresPath + @"\queenB.png", new Vector2f(325, 725));
-            Sprite queenW = CreateChessPieceTexture(figuresPath + @"\queenW.png", new Vector2f(325, 25));
+            Sprite queenB = CreateChessPieceTexture(@"\queenB.png", new Vector2f(325, 725));
+            Sprite queenW = CreateChessPieceTexture(@"\queenW.png", new Vector2f(325, 25));
 
             // Rooks
-            Sprite rookB1 = CreateChessPieceTexture(figuresPath + @"\rookB.png", new Vector2f(25, 725));
-            Sprite rookB2 = CreateChessPieceTexture(figuresPath + @"\rookB.png", new Vector2f(725, 725));
-            Sprite rookW1 = CreateChessPieceTexture(figuresPath + @"\rookW.png", new Vector2f(25, 25));
-            Sprite rookW2 = CreateChessPieceTexture(figuresPath + @"\rookW.png", new Vector2f(725, 25));
+            Sprite rookB1 = CreateChessPieceTexture(@"\rookB.png", new Vector2f(25, 725));
+            Sprite rookB2 = CreateChessPieceTexture(@"\rookB.png", new Vector2f(725, 725));
+            Sprite rookW1 = CreateChessPieceTexture(@"\rookW.png", new Vector2f(25, 25));
+            Sprite rookW2 = CreateChessPieceTexture(@"\rookW.png", new Vector2f(725, 25));
 
             // Bishops
-            Sprite bishopB1 = CreateChessPieceTexture(figuresPath + @"\bishopB.png", new Vector2f(225, 725));
-            Sprite bishopB2 = CreateChessPieceTexture(figuresPath + @"\bishopB.png", new Vector2f(525, 725));
-            Sprite bishopW1 = CreateChessPieceTexture(figuresPath + @"\bishopW.png", new Vector2f(225, 25));
-            Sprite bishopW2 = CreateChessPieceTexture(figuresPath + @"\bishopW.png", new Vector2f(525, 25));
+            Sprite bishopB1 = CreateChessPieceTexture(@"\bishopB.png", new Vector2f(225, 725));
+            Sprite bishopB2 = CreateChessPieceTexture(@"\bishopB.png", new Vector2f(525, 725));
+            Sprite bishopW1 = CreateChessPieceTexture(@"\bishopW.png", new Vector2f(225, 25));
+            Sprite bishopW2 = CreateChessPieceTexture(@"\bishopW.png", new Vector2f(525, 25));
 
             //Knights
-            Sprite knightB1 = CreateChessPieceTexture(figuresPath + @"\knightB.png", new Vector2f(125, 725));
-            Sprite knightB2 = CreateChessPieceTexture(figuresPath + @"\knightB.png", new Vector2f(625, 725));
-            Sprite knightW1 = CreateChessPieceTexture(figuresPath + @"\knightW.png", new Vector2f(125, 25));
-            Sprite knightW2 = CreateChessPieceTexture(figuresPath + @"\knightW.png", new Vector2f(625, 25));
+            Sprite knightB1 = CreateChessPieceTexture(@"\knightB.png", new Vector2f(125, 725));
+            Sprite knightB2 = CreateChessPieceTexture(@"\knightB.png", new Vector2f(625, 725));
+            Sprite knightW1 = CreateChessPieceTexture(@"\knightW.png", new Vector2f(125, 25));
+            Sprite knightW2 = CreateChessPieceTexture(@"\knightW.png", new Vector2f(625, 25));
 
             Sprite selectedFigure = null;
             bool isPawnSelected = false;
@@ -107,7 +108,7 @@ namespace ProjectMindWar.graphics
                     Vector2f relativeMousePosition = new Vector2f(mousePosition.X + 540, mousePosition.Y + 160) - new Vector2f(Position.X, Position.Y);
                     int column = (int)Math.Floor(relativeMousePosition.X / 100);
                     int row = (int)Math.Floor(relativeMousePosition.Y / 100);
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
 
                     if ((column > 7.25 || row > 7.25) || (column < 0 || row < 0))
                     {
@@ -172,7 +173,6 @@ namespace ProjectMindWar.graphics
                                 break;
                             }
                         }
-
                     }
                 }
 
