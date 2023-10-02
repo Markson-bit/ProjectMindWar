@@ -19,7 +19,7 @@ namespace ProjectMindWar.src
             filePath = figuresPath + filePath;
             Texture texture = new Texture(filePath);
             Sprite sprite = new Sprite(texture);
-            sprite.Scale = new Vector2f(50f / sprite.Texture.Size.X, 50f / sprite.Texture.Size.Y);
+            sprite.Scale = new Vector2f(75f / sprite.Texture.Size.X, 75f / sprite.Texture.Size.Y);
             sprite.Texture.Smooth = true;
             sprite.Position = position;
             return sprite;
@@ -47,35 +47,37 @@ namespace ProjectMindWar.src
             ChessPiece[] pawnsB = new ChessPiece[8];
             ChessPiece[] pawnsW = new ChessPiece[8];
 
+            // NOW 13, BEFORE 25 ! ! !
+
             for (int i = 0; i < 8; i++)
             {
-                pawnsB[i] = new ChessPiece(CreateChessPieceTexture(@"\pawnB.png", new Vector2f(25 + 100 * i, 625)), "black");
-                pawnsW[i] = new ChessPiece(CreateChessPieceTexture(@"\pawnW.png", new Vector2f(25 + 100 * i, 125)), "white");
+                pawnsB[i] = new ChessPiece(CreateChessPieceTexture(@"\pawnB.png", new Vector2f(13 + 100 * i, 613)), "black");
+                pawnsW[i] = new ChessPiece(CreateChessPieceTexture(@"\pawnW.png", new Vector2f(13 + 100 * i, 113)), "white");
             }
 
             // Defining Sprites with their png's and position
             // Kings
             //Sprite kingB = CreateChessPieceTexture(@"\kingB.png", new Vector2f(425, 725));
-            ChessPiece kingB = new ChessPiece(CreateChessPieceTexture(@"\kingB.png", new Vector2f(425, 725)), "black");
-            ChessPiece kingW = new ChessPiece(CreateChessPieceTexture(@"\kingW.png", new Vector2f(425, 25)), "white");
+            ChessPiece kingB = new ChessPiece(CreateChessPieceTexture(@"\kingB.png", new Vector2f(413, 713)), "black");
+            ChessPiece kingW = new ChessPiece(CreateChessPieceTexture(@"\kingW.png", new Vector2f(413, 13)), "white");
             // Queens
-            ChessPiece queenB = new ChessPiece(CreateChessPieceTexture(@"\queenB.png", new Vector2f(325, 725)), "black");
-            ChessPiece queenW = new ChessPiece(CreateChessPieceTexture(@"\queenW.png", new Vector2f(325, 25)), "white");
+            ChessPiece queenB = new ChessPiece(CreateChessPieceTexture(@"\queenB.png", new Vector2f(313, 713)), "black");
+            ChessPiece queenW = new ChessPiece(CreateChessPieceTexture(@"\queenW.png", new Vector2f(313, 13)), "white");
             // Rooks
-            ChessPiece rookB1 = new ChessPiece(CreateChessPieceTexture(@"\rookB.png", new Vector2f(25, 725)), "black");
-            ChessPiece rookB2 = new ChessPiece(CreateChessPieceTexture(@"\rookB.png", new Vector2f(725, 725)), "black");
-            ChessPiece rookW1 = new ChessPiece(CreateChessPieceTexture(@"\rookW.png", new Vector2f(25, 25)), "white");
-            ChessPiece rookW2 = new ChessPiece(CreateChessPieceTexture(@"\rookW.png", new Vector2f(725, 25)), "white");
+            ChessPiece rookB1 = new ChessPiece(CreateChessPieceTexture(@"\rookB.png", new Vector2f(13, 713)), "black");
+            ChessPiece rookB2 = new ChessPiece(CreateChessPieceTexture(@"\rookB.png", new Vector2f(713, 713)), "black");
+            ChessPiece rookW1 = new ChessPiece(CreateChessPieceTexture(@"\rookW.png", new Vector2f(13, 13)), "white");
+            ChessPiece rookW2 = new ChessPiece(CreateChessPieceTexture(@"\rookW.png", new Vector2f(713, 13)), "white");
             // Bishops
-            ChessPiece bishopB1 = new ChessPiece(CreateChessPieceTexture(@"\bishopB.png", new Vector2f(225, 725)), "black");
-            ChessPiece bishopB2 = new ChessPiece(CreateChessPieceTexture(@"\bishopB.png", new Vector2f(525, 725)), "black");
-            ChessPiece bishopW1 = new ChessPiece(CreateChessPieceTexture(@"\bishopW.png", new Vector2f(225, 25)), "white");
-            ChessPiece bishopW2 = new ChessPiece(CreateChessPieceTexture(@"\bishopW.png", new Vector2f(525, 25)), "white");
+            ChessPiece bishopB1 = new ChessPiece(CreateChessPieceTexture(@"\bishopB.png", new Vector2f(213, 713)), "black");
+            ChessPiece bishopB2 = new ChessPiece(CreateChessPieceTexture(@"\bishopB.png", new Vector2f(513, 713)), "black");
+            ChessPiece bishopW1 = new ChessPiece(CreateChessPieceTexture(@"\bishopW.png", new Vector2f(213, 13)), "white");
+            ChessPiece bishopW2 = new ChessPiece(CreateChessPieceTexture(@"\bishopW.png", new Vector2f(513, 13)), "white");
             //Knights
-            ChessPiece knightB1 = new ChessPiece(CreateChessPieceTexture(@"\knightB.png", new Vector2f(125, 725)), "black");
-            ChessPiece knightB2 = new ChessPiece(CreateChessPieceTexture(@"\knightB.png", new Vector2f(625, 725)), "black");
-            ChessPiece knightW1 = new ChessPiece(CreateChessPieceTexture(@"\knightW.png", new Vector2f(125, 25)), "white");
-            ChessPiece knightW2 = new ChessPiece(CreateChessPieceTexture(@"\knightW.png", new Vector2f(625, 25)), "white");
+            ChessPiece knightB1 = new ChessPiece(CreateChessPieceTexture(@"\knightB.png", new Vector2f(113, 713)), "black");
+            ChessPiece knightB2 = new ChessPiece(CreateChessPieceTexture(@"\knightB.png", new Vector2f(613, 713)), "black");
+            ChessPiece knightW1 = new ChessPiece(CreateChessPieceTexture(@"\knightW.png", new Vector2f(113, 13)), "white");
+            ChessPiece knightW2 = new ChessPiece(CreateChessPieceTexture(@"\knightW.png", new Vector2f(613, 13)), "white");
 
             // Creating dictionary with figures
             Dictionary<string, ChessPiece> pieces = new Dictionary<string, ChessPiece>
@@ -137,19 +139,19 @@ namespace ProjectMindWar.src
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
                     Vector2i mousePosition = Mouse.GetPosition(this);
-                    Vector2f relativeMousePosition = new Vector2f(mousePosition.X + 540, mousePosition.Y + 160) - new Vector2f(Position.X, Position.Y);
+                    Vector2f relativeMousePosition = new Vector2f(mousePosition.X + 565, mousePosition.Y + 140) - new Vector2f(Position.X, Position.Y);
                     int column = (int)Math.Floor(relativeMousePosition.X / 100);
                     int row = (int)Math.Floor(relativeMousePosition.Y / 100);
                     Thread.Sleep(200);
 
                     if (column > 7.25 || row > 7.25 || column < 0 || row < 0)
                     {
-                        Vector2f newPosition = new Vector2f(column * 100 + 25, row * 100 + 25);
+                        Vector2f newPosition = new Vector2f(column * 100 + 13, row * 100 + 13);
                         Console.WriteLine($"To far: ({newPosition.X}, {newPosition.Y})");
                     }
                     if (isPawnSelected)
                     {
-                        Vector2f newPosition = new Vector2f(column * 100 + 25, row * 100 + 25);
+                        Vector2f newPosition = new Vector2f(column * 100 + 13, row * 100 + 13);
                         // Check, if there is a piece on target position
                         bool isDestinationOccupied = false;
                         // Adding variable to beaten piece
