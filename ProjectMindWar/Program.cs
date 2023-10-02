@@ -1,7 +1,7 @@
-﻿using ProjectMindWar.graphics;
-using System;
+﻿using System;
 using SFML.Graphics;
 using SFML.Window;
+using ProjectMindWar.src;
 
 namespace ProjectMindWar
 {
