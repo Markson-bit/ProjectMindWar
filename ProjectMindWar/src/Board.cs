@@ -114,7 +114,7 @@ namespace ProjectMindWar.src
                 {"KNIGHT WHITE (right)", knightW2},
             };
 
-            ChessPiece selectedFigure = null;
+            ChessPiece ?selectedFigure = null;
             bool isPawnSelected = false;
 
             while (IsOpen)
@@ -160,7 +160,7 @@ namespace ProjectMindWar.src
                             if (piece.Value != selectedFigure && piece.Value.GetGlobalBounds().Contains(newPosition.X, newPosition.Y))
                             {
                                 isDestinationOccupied = true;
-                                if (selectedFigure.PieceColor != piece.Value.PieceColor)
+                                if (selectedFigure.PieceColor != piece.Value.PieceColor && newPosition != selectedFigure.Position)
                                 {
                                     beatenPiece = piece;
                                     selectedFigure.Position = newPosition;
@@ -177,7 +177,7 @@ namespace ProjectMindWar.src
                             }
                         }
 
-                        if (!isDestinationOccupied)
+                        if (!isDestinationOccupied && newPosition != selectedFigure.Position)
                         {
                             // Moving selected figure to target position
                             selectedFigure.Position = newPosition;
